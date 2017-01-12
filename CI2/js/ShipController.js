@@ -44,10 +44,10 @@ class ShipController {
   }
 
   fire(){
-    new BulletController(this.sprite.position,"BulletType1.png",new Phaser.Point(0, -1), Math.atan(0));
-    new BulletController(this.sprite.position,"BulletType1.png",new Phaser.Point(1, -4), Math.atan(1/4));
-    new BulletController(this.sprite.position,"BulletType1.png",new Phaser.Point(-1, -4), Math.atan(-1/4));
-    new BulletController(this.sprite.position,"BulletType1.png",new Phaser.Point(1, -2), Math.atan(1/2));
-    new BulletController(this.sprite.position,"BulletType1.png",new Phaser.Point(-1, -2), Math.atan(-1/2));
+    new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(0, -1), Math.atan(0), false);
+    new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(1, -4), Math.atan(1/4), false);
+    new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(-1, -4), Math.atan(-1/4), false);
+    new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(1, -2), Math.atan(1/2), false);
+    new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(-1, -2), Math.atan(-1/2), false);
   }
 }
