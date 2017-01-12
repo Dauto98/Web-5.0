@@ -39,7 +39,7 @@ var create = function(){
   Nakama.game.physics.startSystem(Phaser.Physics.ARCADE);
   Nakama.keyboard = Nakama.game.input.keyboard;
 
-  background = Nakama.game.add.tileSprite(0, 0, 700, 1000, "background");
+  Nakama.background = Nakama.game.add.tileSprite(0, 0, 700, 1000, "background");
 
   Nakama.bulletGroup = Nakama.game.add.physicsGroup();
   Nakama.enemyBulletGroup = Nakama.game.add.physicsGroup();
@@ -77,6 +77,8 @@ var create = function(){
 
 // update game state each frame
 var update = function(){
+  Nakama.background.tilePosition.y += 0.5;
+
   for(var i=0; i<Nakama.players.length; i++){
     Nakama.players[i].update();
   }
