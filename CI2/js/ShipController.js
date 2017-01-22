@@ -10,6 +10,7 @@ class ShipController {
     this.sprite.body.collideWorldBounds = true;
 
     this.configs = configs;
+    this.sprite.health = this.configs.health;
     this.timeSinceLastFire = 0;
   }
 
@@ -26,12 +27,15 @@ class ShipController {
 
     if (Nakama.keyboard.isDown(this.configs.left)) {
         this.sprite.body.velocity.x = -Nakama.configs.shipSpeed;
+        this.sprite.frameName = this.configs.frameNameLeft;
       }
     else if (Nakama.keyboard.isDown(this.configs.right)) {
         this.sprite.body.velocity.x = Nakama.configs.shipSpeed;
+        this.sprite.frameName = this.configs.frameNameRight;
       }
       else {
         this.sprite.body.velocity.x = 0;
+        this.sprite.frameName = this.configs.frameNameDefault;
       }
 
     this.timeSinceLastFire += Nakama.game.time.physicsElapsed;
@@ -45,8 +49,8 @@ class ShipController {
 
   fire(){
     new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(0, -1), Math.atan(0), false);
-    new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(1, -4), Math.atan(1/4), false);
-    new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(-1, -4), Math.atan(-1/4), false);
+    new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(1, -10), Math.atan(1/4), false);
+    new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(-1, -10), Math.atan(-1/4), false);
     new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(1, -2), Math.atan(1/2), false);
     new BulletController(this.sprite.position, "BulletType1.png", new Phaser.Point(-1, -2), Math.atan(-1/2), false);
   }

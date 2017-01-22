@@ -47,25 +47,33 @@ var create = function(){
   Nakama.enemyGroup = Nakama.game.add.physicsGroup();
 
   Nakama.players = [];
-  Nakama.players.push(new ShipController(200, 200,"Spaceship1-Player.png",
+  Nakama.players.push(new ShipController(200, 500,"Spaceship1-Player.png",
     {
-      up       : Phaser.Keyboard.UP,
-      down     : Phaser.Keyboard.DOWN,
-      left     : Phaser.Keyboard.LEFT,
-      right    : Phaser.Keyboard.RIGHT,
-      fire     : Phaser.Keyboard.SPACEBAR,
-      cooldown : 0.2
+      up               : Phaser.Keyboard.UP,
+      down             : Phaser.Keyboard.DOWN,
+      left             : Phaser.Keyboard.LEFT,
+      right            : Phaser.Keyboard.RIGHT,
+      fire             : Phaser.Keyboard.SPACEBAR,
+      cooldown         : 0.2,
+      health           : 1,
+      frameNameDefault : "Spaceship1-Player.png",
+      frameNameLeft    : "Spaceship1Left-Player.png",
+      frameNameRight   : "Spaceship1Right-Player.png"
     })
   );
 
-  Nakama.players.push(new ShipController(400, 200,"Spaceship1-Partner.png",
+  Nakama.players.push(new ShipController(400, 500,"Spaceship1-Partner.png",
     {
-      up       : Phaser.Keyboard.W,
-      down     : Phaser.Keyboard.S,
-      left     : Phaser.Keyboard.A,
-      right    : Phaser.Keyboard.D,
-      fire     : Phaser.Keyboard.SHIFT,
-      cooldown : 0.2
+      up               : Phaser.Keyboard.W,
+      down             : Phaser.Keyboard.S,
+      left             : Phaser.Keyboard.A,
+      right            : Phaser.Keyboard.D,
+      fire             : Phaser.Keyboard.SHIFT,
+      cooldown         : 0.2,
+      health           : 1,
+      frameNameDefault : "Spaceship1-Partner.png",
+      frameNameLeft    : "Spaceship1Left-Partner.png",
+      frameNameRight   : "Spaceship1Right-Partner.png"
     })
   );
 
@@ -86,7 +94,14 @@ var update = function(){
   // spawn an enemy if there are less than 3 enemy ship and time from the last spawn is over 3 second
   Nakama.timeSinceLastSpawn += Nakama.game.time.physicsElapsed;
   if(Nakama.enemies.length < 3 && Nakama.timeSinceLastSpawn > Nakama.configs.spawnCooldown){
-    Nakama.enemies.push(new EnemyController(100, 100, "EnemyType1.png", { cooldown : 0.5}));
+    Nakama.enemies.push(new EnemyController(100, 100, "EnemyType1.png",
+      {
+        cooldown  : 0.5,
+        minX      : 100,
+        maxX      : 540,
+        tweenTime : 3,
+        health    : 1
+      }));
     Nakama.timeSinceLastSpawn = 0;
   }
 
@@ -95,21 +110,21 @@ var update = function(){
   }
 
   // checking collision between bullet and ship
-  Nakama.game.physics.arcade.overlap(Nakama.bulletGroup, Nakama.enemyGroup, hitEnemy, null, this);
-  Nakama.game.physics.arcade.overlap(Nakama.enemyBulletGroup, Nakama.playerGroup, hitPlayer, null, this);
+  Nakama.game.physics.arcade.overlap(Nakama.bulletGroup, Nakama.enemyGroup, hitEnemy);
+  Nakama.game.physics.arcade.overlap(Nakama.enemyBulletGroup, Nakama.playerGroup, hitPlayer);
 }
 
 // call this function if player's bullet hit enemy ship
 var hitEnemy = function(bullet, enemy){
+  enemy.damage(1);
   bullet.kill();
-  enemy.kill();
   Nakama.enemies.splice(Nakama.enemies.indexOf(enemy), 1);
 }
 
 //call this function if enemy's bullet hit player ship
 var hitPlayer = function(enemyBullet, player){
+  player.damage(1);
   enemyBullet.kill();
-  player.kill();
   Nakama.players.splice(Nakama.players.indexOf(player), 1);
 }
 
