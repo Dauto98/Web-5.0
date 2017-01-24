@@ -47,33 +47,16 @@ var create = function(){
   Nakama.enemyGroup = Nakama.game.add.physicsGroup();
 
   Nakama.players = [];
-  Nakama.players.push(new ShipController(200, 500, "Spaceship1-Player.png",
+  Nakama.players.push(new PlayerShip1Controller(200, 500,
     {
-      up               : Phaser.Keyboard.UP,
-      down             : Phaser.Keyboard.DOWN,
-      left             : Phaser.Keyboard.LEFT,
-      right            : Phaser.Keyboard.RIGHT,
-      fire             : Phaser.Keyboard.SPACEBAR,
-      cooldown         : 0.2,
-      health           : 1,
-      frameNameDefault : "Spaceship1-Player.png",
-      frameNameLeft    : "Spaceship1Left-Player.png",
-      frameNameRight   : "Spaceship1Right-Player.png"
+      partnerOrPlayer : "Player",
+      health          : 1
     })
   );
-
-  Nakama.players.push(new ShipController(400, 500, "Spaceship1-Partner.png",
+  Nakama.players.push(new PlayerShip1Controller(400, 500,
     {
-      up               : Phaser.Keyboard.W,
-      down             : Phaser.Keyboard.S,
-      left             : Phaser.Keyboard.A,
-      right            : Phaser.Keyboard.D,
-      fire             : Phaser.Keyboard.SHIFT,
-      cooldown         : 0.2,
-      health           : 1,
-      frameNameDefault : "Spaceship1-Partner.png",
-      frameNameLeft    : "Spaceship1Left-Partner.png",
-      frameNameRight   : "Spaceship1Right-Partner.png"
+      partnerOrPlayer : "Partner",
+      health          : 1
     })
   );
 
