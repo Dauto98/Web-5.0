@@ -50,14 +50,14 @@ class ShipController {
   fire(){
     if (this.sprite.alive) {
       this.createBullet(new Phaser.Point(0, -1));
-      this.createBullet(new Phaser.Point(1, -10));
-      this.createBullet(new Phaser.Point(-1, -10));
-      this.createBullet(new Phaser.Point(1, -2));
-      this.createBullet(new Phaser.Point(-1, -2));
+      // this.createBullet(new Phaser.Point(1, -10));
+      // this.createBullet(new Phaser.Point(-1, -10));
+      // this.createBullet(new Phaser.Point(1, -2));
+      // this.createBullet(new Phaser.Point(-1, -2));
     }
   }
 
   createBullet(direction){
-    new PlayerBulletType1Controller(this.sprite.position, direction);
+    Nakama.missile.push(new PlayerBulletType2Controller(this.sprite.position, direction));
   }
 }

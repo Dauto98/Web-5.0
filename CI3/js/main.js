@@ -43,6 +43,7 @@ var create = function(){
 
   Nakama.bulletGroup = Nakama.game.add.physicsGroup();
   Nakama.enemyBulletGroup = Nakama.game.add.physicsGroup();
+  Nakama.missileGroup = Nakama.game.add.physicsGroup();
   Nakama.playerGroup = Nakama.game.add.physicsGroup();
   Nakama.enemyGroup = Nakama.game.add.physicsGroup();
 
@@ -63,6 +64,8 @@ var create = function(){
   // array which hold the enemy
   Nakama.enemies = [];
   Nakama.timeSinceLastSpawn = 2.5;
+
+  Nakama.missile = [];
 }
 
 
@@ -72,6 +75,10 @@ var update = function(){
 
   for(var i=0; i<Nakama.players.length; i++){
     Nakama.players[i].update();
+  }
+
+  for(var i=0; i<Nakama.missile.length; i++){
+    Nakama.missile[i].update();
   }
 
   // spawn an enemy if there are less than 3 enemy ship and time from the last spawn is over 3 second
@@ -94,7 +101,7 @@ var update = function(){
 
   // checking collision between bullet and ship
   Nakama.game.physics.arcade.overlap(Nakama.bulletGroup, Nakama.enemyGroup, hitEnemy);
-  Nakama.game.physics.arcade.overlap(Nakama.enemyBulletGroup, Nakama.playerGroup, hitPlayer);
+  // Nakama.game.physics.arcade.overlap(Nakama.enemyBulletGroup, Nakama.playerGroup, hitPlayer);
 }
 
 // call this function if player's bullet hit enemy ship
@@ -112,4 +119,5 @@ var hitPlayer = function(enemyBullet, player){
 
 
 // before camera render (mostly for debug)
-var render = function(){}
+var render = function(){
+}
