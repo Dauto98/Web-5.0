@@ -14,9 +14,6 @@ class PlayerBulletType2Controller extends BulletController{
 
 			this.sprite.targetAngle += Math.PI/2;
 
-			// log targetAngle, return undefined ?????
-			console.log("target angle: ",this.sprite.targetAngle);
-
 			if(this.sprite.rotation !== this.sprite.targetAngle){
 				this.sprite.delta = this.sprite.targetAngle - this.sprite.rotation;
 

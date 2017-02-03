@@ -5,7 +5,7 @@ Nakama.configs = {
   bulletSpeed : 400,
   shipSpeed   : 500,
   enemySpeed  : 500,
-  enemySpawnCooldown : 3
+  enemySpawnCooldown : 3.5
 };
 
 window.onload = function(){
@@ -63,7 +63,7 @@ var create = function(){
 
   // array which hold the enemy
   Nakama.enemies = [];
-  Nakama.timeSinceLastSpawn = 2.5;
+  Nakama.timeSinceLastSpawn = 2.25;
 
   Nakama.missile = [];
 }
