@@ -5,7 +5,7 @@ Nakama.configs = {
   bulletSpeed : 400,
   shipSpeed   : 500,
   enemySpeed  : 500,
-  enemySpawnCooldown : 3
+  enemySpawnCooldown : 4
 };
 
 window.onload = function(){
@@ -63,9 +63,18 @@ var create = function(){
 
   // array which hold the enemy
   Nakama.enemies = [];
-  Nakama.timeSinceLastSpawn = 2.5;
+  Nakama.enemies.push(new EnemyController(100, 100, "EnemyType1.png",
+    {
+      cooldown  : 0.5,
+      minX      : 100,
+      maxX      : 540,
+      tweenTime : 3,
+      health    : 1
+    }));
+  Nakama.enemies[0].sprite.kill();
+  Nakama.timeSinceLastSpawn = 2;
 
-  Nakama.missile = [];
+  Nakama.missiles = [];
 }
 
 
@@ -77,30 +86,37 @@ var update = function(){
     Nakama.players[i].update();
   }
 
-  for(var i=0; i<Nakama.missile.length; i++){
-    Nakama.missile[i].update();
-  }
+  // for(var j=0; j<Nakama.missiles.length; j++){
+  //   // console.log(j, Nakama.missiles.length);
+  //   Nakama.missiles[j].update();
+  // }
 
-  // spawn an enemy if there are less than 3 enemy ship and time from the last spawn is over 3 second
+  // spawn an enemy if there are less than 3 enemy ship and time from the last spawn is long enough
   Nakama.timeSinceLastSpawn += Nakama.game.time.physicsElapsed;
-  if(Nakama.enemies.length < 3 && Nakama.timeSinceLastSpawn > Nakama.configs.enemySpawnCooldown){
-    Nakama.enemies.push(new EnemyController(100, 100, "EnemyType1.png",
-      {
-        cooldown  : 0.5,
-        minX      : 100,
-        maxX      : 540,
-        tweenTime : 3,
-        health    : 1
-      }));
-    Nakama.timeSinceLastSpawn = 0;
+  if(Nakama.enemyGroup.countLiving() < 3 && Nakama.timeSinceLastSpawn > Nakama.configs.enemySpawnCooldown){
+    var newEnemy = Nakama.enemyGroup.getFirstDead();
+    if(newEnemy === null){
+      Nakama.enemies.push(new EnemyController(100, 100, "EnemyType1.png",
+        {
+          cooldown  : 0.5,
+          minX      : 100,
+          maxX      : 540,
+          tweenTime : 3,
+          health    : 1
+        }));
+      Nakama.timeSinceLastSpawn = 0;
+    } else {
+      newEnemy.revive(1);
+    }
   }
 
-  for(var j=0; j<Nakama.enemies.length; j++){
-    Nakama.enemies[j].update();
+  for(var j=0; j<Nakama.enemyGroup.children.length; j++){
+    Nakama.enemyGroup.children[j].update();
   }
 
   // checking collision between bullet and ship
   Nakama.game.physics.arcade.overlap(Nakama.bulletGroup, Nakama.enemyGroup, hitEnemy);
+  Nakama.game.physics.arcade.overlap(Nakama.missileGroup, Nakama.enemyGroup, hitEnemy);
   // Nakama.game.physics.arcade.overlap(Nakama.enemyBulletGroup, Nakama.playerGroup, hitPlayer);
 }
 
@@ -108,7 +124,9 @@ var update = function(){
 var hitEnemy = function(bullet, enemy){
   enemy.damage(1);
   bullet.kill();
-  Nakama.enemies.splice(Nakama.enemies.indexOf(enemy), 1);
+  // if(Nakama.missiles.indexOf(bullet) > -1){
+  //   Nakama.missiles.splice(Nakama.missiles.indexOf(bullet), 1);
+  // }
 }
 
 //call this function if enemy's bullet hit player ship

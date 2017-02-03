@@ -15,14 +15,16 @@ class EnemyController {
 	}
 
 	update(){
-		this.timeSinceLastFire += Nakama.game.time.physicsElapsed;
-		this.timeSinceSpawn += Nakama.game.time.physicsElapsed;
-		// moving
-		this.sprite.position.x = (this.configs.centerX + this.configs.movementDistance * Math.sin(Math.PI*2*this.timeSinceSpawn/this.configs.tweenTime));
-		// fire
-		if(this.timeSinceLastFire > this.configs.cooldown){
-			new BulletController(this.sprite.position, "EnemyBulletType1.png", new Phaser.Point(0, 1), Nakama.enemyBulletGroup);
-			this.timeSinceLastFire = 0;
+		if(this.sprite.alive){
+			this.timeSinceLastFire += Nakama.game.time.physicsElapsed;
+			this.timeSinceSpawn += Nakama.game.time.physicsElapsed;
+			// moving
+			this.sprite.position.x = (this.configs.centerX + this.configs.movementDistance * Math.sin(Math.PI*2*this.timeSinceSpawn/this.configs.tweenTime));
+			// fire
+			if(this.timeSinceLastFire > this.configs.cooldown){
+				new BulletController(this.sprite.position, "EnemyBulletType1.png", new Phaser.Point(0, 1), Nakama.enemyBulletGroup);
+				this.timeSinceLastFire = 0;
+			}
 		}
 	}
 }

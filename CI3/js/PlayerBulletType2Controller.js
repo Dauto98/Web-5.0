@@ -3,19 +3,21 @@ class PlayerBulletType2Controller extends BulletController{
 		super(position, "BulletType2.png", direction, Nakama.missileGroup);
 		this.sprite.TURN_RATE = 5;
 		this.sprite.SPEED = 250;
+
+		this.lockEnemy();
 	}
 
 	update(){
-		if(this.sprite.alive){
+		if(this.sprite.alive && Nakama.enemyGroup.children[this.closestEnemy].alive){
 			this.sprite.targetAngle = Nakama.game.math.angleBetween(
 				this.sprite.position.x, this.sprite.position.y,
-				Nakama.game.input.activePointer.x, Nakama.game.input.activePointer.y
+				Nakama.enemies[this.closestEnemy].sprite.position.x, Nakama.enemies[this.closestEnemy].sprite.position.y
 			)
 
 			this.sprite.targetAngle += Math.PI/2;
 
-			// log targetAngle, return undefined ?????
-			console.log("target angle: ",this.sprite.targetAngle);
+			// TODO: log targetAngle, return undefined ?????
+			// console.log("target angle: ",this.sprite.targetAngle);
 
 			if(this.sprite.rotation !== this.sprite.targetAngle){
 				this.sprite.delta = this.sprite.targetAngle - this.sprite.rotation;
@@ -45,6 +47,17 @@ class PlayerBulletType2Controller extends BulletController{
 			// Calculate velocity vector based on this.rotation and this.SPEED
 	    this.sprite.body.velocity.x = Math.cos(this.sprite.rotation - Math.PI/2) * this.sprite.SPEED;
 	    this.sprite.body.velocity.y = Math.sin(this.sprite.rotation - Math.PI/2) * this.sprite.SPEED;
+		}
+	}
+
+	lockEnemy(){
+		this.closestEnemy = 0;
+		var distanceToEnemy = 1000000;
+		console.log("enemies: ", Nakama.enemyGroup.children.length);
+		for(var i=0; i < Nakama.enemyGroup.children.length; i++){
+			if(distanceToEnemy > Nakama.game.math.distance(this.sprite.position.x, this.sprite.position.y, Nakama.enemyGroup.children[i].sprite.position.x, Nakama.enemyGroup.children[i].sprite.position.y)){
+				this.closestEnemy = i;
+			}
 		}
 	}
 }
