@@ -49,15 +49,21 @@ class ShipController {
 
   fire(){
     if (this.sprite.alive) {
-      this.createBullet(new Phaser.Point(0, -1));
+      this.createBulletType2(new Phaser.Point(0, -1));
       // this.createBullet(new Phaser.Point(1, -10));
       // this.createBullet(new Phaser.Point(-1, -10));
       // this.createBullet(new Phaser.Point(1, -2));
       // this.createBullet(new Phaser.Point(-1, -2));
     }
+  //   console.log("Group: ", Nakama.enemyGroup.children.length);
+  //   console.log("Array: ", Nakama.enemies.length);
   }
 
-  createBullet(direction){
+  createBulletType1(direction){
+    new PlayerBulletType1Controller(this.sprite.position, direction);
+  }
+
+  createBulletType2(direction){
     Nakama.missile.push(new PlayerBulletType2Controller(this.sprite.position, direction));
   }
 }
