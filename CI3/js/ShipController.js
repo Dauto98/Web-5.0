@@ -12,6 +12,8 @@ class ShipController {
     this.configs = configs;
     this.sprite.health = this.configs.health;
     this.timeSinceLastFire = 0;
+
+    this.bullet = 2;
   }
 
   update(){
@@ -49,15 +51,20 @@ class ShipController {
 
   fire(){
     if (this.sprite.alive) {
-      this.createBulletType2(new Phaser.Point(0, -1));
-      // this.createBullet(new Phaser.Point(1, -10));
-      // this.createBullet(new Phaser.Point(-1, -10));
-      // this.createBullet(new Phaser.Point(1, -2));
-      // this.createBullet(new Phaser.Point(-1, -2));
+      if(this.bullet === 1){
+        this.createBulletType1(new Phaser.Point(0, -1));
+        this.createBulletType1(new Phaser.Point(1, -10));
+        this.createBulletType1(new Phaser.Point(-1, -10));
+        this.createBulletType1(new Phaser.Point(1, -2));
+        this.createBulletType1(new Phaser.Point(-1, -2));
+      } else if (this.bullet === 2) {
+        this.createBulletType2(new Phaser.Point(0, -1));
+      }
     }
-  //   console.log("Group: ", Nakama.enemyGroup.children.length);
-  //   console.log("Array: ", Nakama.enemies.length);
+    //   console.log("Group: ", Nakama.enemyGroup.children.length);
+    //   console.log("Array: ", Nakama.enemies.length);
   }
+
 
   createBulletType1(direction){
     new PlayerBulletType1Controller(this.sprite.position, direction);
