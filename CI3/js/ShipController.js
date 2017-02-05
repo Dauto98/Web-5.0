@@ -58,11 +58,10 @@ class ShipController {
         this.createBulletType1(new Phaser.Point(1, -2));
         this.createBulletType1(new Phaser.Point(-1, -2));
       } else if (this.bullet === 2) {
-        this.createBulletType2(new Phaser.Point(0, -1));
+        this.createBulletType2(new Phaser.Point(0, -1), new Phaser.Point(1, 1));
+        this.createBulletType2(new Phaser.Point(0, -1), new Phaser.Point(1, -1));
       }
     }
-    //   console.log("Group: ", Nakama.enemyGroup.children.length);
-    //   console.log("Array: ", Nakama.enemies.length);
   }
 
 
@@ -70,7 +69,11 @@ class ShipController {
     new PlayerBulletType1Controller(this.sprite.position, direction);
   }
 
-  createBulletType2(direction){
-    Nakama.missile.push(new PlayerBulletType2Controller(this.sprite.position, direction));
+  createBulletType2(direction, launchDirection){
+    Nakama.missile.push(new PlayerBulletType2Controller(this.sprite.position, direction, launchDirection));
+
+    //TODO: if I use these 2 line of code in createBulletType2 function to creat 2 missile, they stick to each other ??? (last parameter is launchDirection)
+    // Nakama.missile.push(new PlayerBulletType2Controller(this.sprite.position, new Phaser.Point(0, -1), new Phaser.Point(1, -1)));
+    // Nakama.missile.push(new PlayerBulletType2Controller(this.sprite.position, new Phaser.Point(0, -1), new Phaser.Point(1, 1)));
   }
 }

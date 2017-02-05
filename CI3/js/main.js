@@ -102,7 +102,7 @@ var update = function(){
   // checking collision between bullet and ship
   Nakama.game.physics.arcade.overlap(Nakama.bulletGroup, Nakama.enemyGroup, hitEnemy);
   Nakama.game.physics.arcade.overlap(Nakama.missileGroup, Nakama.enemyGroup, hitEnemy);
-  // Nakama.game.physics.arcade.overlap(Nakama.enemyBulletGroup, Nakama.playerGroup, hitPlayer);
+  Nakama.game.physics.arcade.overlap(Nakama.enemyBulletGroup, Nakama.playerGroup, hitPlayer);
 }
 
 // call this function if player's bullet hit enemy ship
