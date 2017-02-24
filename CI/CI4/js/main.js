@@ -5,7 +5,21 @@ Nakama.configs = {
   bulletSpeed : 400,
   shipSpeed   : 500,
   enemySpeed  : 500,
-  enemySpawnCooldown : 3.5
+  enemySpawnCooldown : 3.5,
+  player1Controls : {
+    up               : Phaser.Keyboard.UP,
+    down             : Phaser.Keyboard.DOWN,
+    left             : Phaser.Keyboard.LEFT,
+    right            : Phaser.Keyboard.RIGHT,
+    fire             : Phaser.Keyboard.SPACEBAR
+  },
+  player2Controls : {
+    up               : Phaser.Keyboard.W,
+    down             : Phaser.Keyboard.S,
+    left             : Phaser.Keyboard.A,
+    right            : Phaser.Keyboard.D,
+    fire             : Phaser.Keyboard.SHIFT
+  }
 };
 
 window.onload = function(){
@@ -48,18 +62,8 @@ var create = function(){
   Nakama.enemyGroup = Nakama.game.add.physicsGroup();
 
   Nakama.players = [];
-  Nakama.players.push(new PlayerShip1Controller(200, 500,
-    {
-      partnerOrPlayer : "Player",
-      health          : 1
-    })
-  );
-  Nakama.players.push(new PlayerShip1Controller(400, 500,
-    {
-      partnerOrPlayer : "Partner",
-      health          : 1
-    })
-  );
+  Nakama.players.push(new PlayerShip3Controller(200, 500, Nakama.configs.player1Controls));
+  Nakama.players.push(new PlayerShip3Controller(400, 500, Nakama.configs.player2Controls));
 
   // array which hold the enemy
   Nakama.enemies = [];
