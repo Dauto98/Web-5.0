@@ -1,0 +1,10 @@
+{
+	"user1" :
+	{
+		"userName" 	: "cuuthegioi",
+		"password"	: "123456",
+		"name"			: "Nguyen Van A",
+		"age"				: 11,
+		"class"			:	"web5"
+	}
+}
