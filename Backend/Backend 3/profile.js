@@ -24,9 +24,8 @@ app.post('/addUser', (request, response) => {
 			response.end(error);
 		} else {
 			let tempData = JSON.parse(data);
-			tempData["user2"] = request.body;
-			let addedData = JSON.stringify(tempData);
-			fs.writeFile('./user.json', addedData, (error) => {
+			tempData.push(request.body);
+			fs.writeFile('./user.json', JSON.stringify(tempData, null, 2), (error) => {
 				if (error) {
 					response.end(error);
 				}
@@ -36,23 +35,46 @@ app.post('/addUser', (request, response) => {
 })
 
 app.put('/editUser', (request, response) => {
+	//check how many users will be edited
+	let editUser = [];
+	if (request.query.userName.constructor === Array) {
+		editUser = request.query.userName;
+	} else {
+		editUser[0] = request.query.userName;
+	}
+
 	fs.readFile('./user.json', (error, data) => {
 		if (error) {
 			response.end(error);
 		} else {
 			let tempData = JSON.parse(data);
 			let added = request.body;
-			if (Object.keys(tempData) === Object.keys(added)) {
-				for (var i in added[Object.keys(added)]) {
-					for(var j in tempData[Object.keys(tempData)]){
-						if (i === j) {
-							if (added[Object.keys(added)][i] !== tempData[Object.keys(tempData)][j]) {
-								tempData[Object.keys(tempData)][j] = added[Object.keys(added)][i];
+
+			editUser.forEach((mod) => {
+				tempData.forEach(function(user, index){
+					if (user.userName == mod) {
+						let userKey = Object.keys(user);
+						let editUserKey = Object.keys(added);
+
+						for (let i = 0; i < editUserKey.length; i++) {
+							for (let j = 0; j < userKey.length; j++){
+								if (editUserKey[i] === userKey[j]) {
+									user[userKey[j]] = added[editUserKey[i]];
+									break;
+								}
+								if (j === userKey.length - 1) {
+									user[editUserKey[i]] = added[editUserKey[i]];
+								}
 							}
-						}
+						};
 					}
+				});
+			})
+			fs.writeFile('./user.json', JSON.stringify(tempData, null, 2), (error) => {
+				if (error) {
+					response.end(error);
 				}
-			};
+			})
 		}
 	})
 })
