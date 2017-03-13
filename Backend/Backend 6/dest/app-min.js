@@ -1,0 +1,1 @@
+var ember=function(){console.log("sea doto best doto")},bloodcyka=1e7;
