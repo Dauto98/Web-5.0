@@ -8,7 +8,15 @@ let course = mongoose.Schema({
 	},
 	title	: String,
 	img		: String,
-	description	:	String
+	description	:	String,
+	createBy : {
+		type : mongoose.Schema.Types.ObjectId,
+		ref	 : 'user'
+	},
+	taughtBy	:	[{
+		type	: mongoose.Schema.Types.ObjectId,
+		ref		: 'instructor'
+	}]
 });
 
 //exports a model

@@ -25,7 +25,7 @@ module.exports = {
 			if (req.school) {
 				query.school = req.query.school;
 			};
-			User.find(query).exec((err, data) => {
+			User.find(query).sort('name').populate({path: 'created', select: 'name -_id'}).exec((err, data) => {
 				if (err) {
 					res.send("ERROR: ", err);
 				} else {
@@ -43,12 +43,7 @@ module.exports = {
 				if (data) {
 					res.json({status: false, message: "user are already exist"});
 				} else {
-					let newUser = new User({
-						name			: req.body.name,
-						username	: req.body.username,
-						age				: req.body.age,
-						school		: req.body.school
-					});
+					let newUser = new User(req.body);
 					newUser.save().then(
 						(data) => {res.json({status: true, message: "user's created"})},
 						(err) => {res.send("ERROR: ", err)}
@@ -94,5 +89,5 @@ module.exports = {
 				res.json({status: false, message: "don't have such user to delete"});
 			};
 		});
-	}
+	},
 }
