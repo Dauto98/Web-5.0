@@ -2,6 +2,8 @@
 let Course = require('./courseModel.js');
 let User = require('../user/userModel.js');
 let Instructor = require('../instructor/instructorModel.js');
+let jwt = require('jsonwebtoken');
+let configs = require('../../configs/index.js');
 
 module.exports = {
 	getAll : (req, res) => {
@@ -10,12 +12,13 @@ module.exports = {
 
 	create : (req, res) => {
 		let webCourse = new Course(req.body);
+		webCourse.createBy = req.user;
 		webCourse.save((err, data) => {
 			if (err) {
-				console.log(err);
+				res.send(err);
 			} else {
 				//add this course to creator's profile
-				User.findOneAndUpdate({'_id' : data.createBy[i]}, {$push: {"created" : data._id}}).exec((err, userData) => {
+				User.findOneAndUpdate({'_id' : data.createBy}, {$push: {"created" : data._id}}).exec((err, userData) => {
 					if (err) {
 						res.json({status: false, message: err});
 					};

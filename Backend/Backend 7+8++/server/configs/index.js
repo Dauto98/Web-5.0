@@ -9,5 +9,8 @@ module.exports = {
 		app.use(bodyParser.json());
 	},
 
-	mongoUri : 'mongodb://localhost/web5'
+	mongoUri   : 'mongodb://localhost/web5',
+	secret	   : 'iamlost',
+	role  	 	 : ['bug mau', 'guest', 'user', 'admin'],
+	permission : ['view', 'edit', 'create', 'delete']
 }

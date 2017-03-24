@@ -18,6 +18,10 @@ let user =  mongoose.Schema({
     type: String,
     default: 'user'
   },
+	permission : {
+		course : String,
+		instructor : String
+	},
   salt: String,
   password: String,
 	created		: [{
