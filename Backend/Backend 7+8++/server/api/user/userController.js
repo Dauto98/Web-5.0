@@ -46,7 +46,7 @@ module.exports = {
 					let newUser = new User(req.body);
 					newUser.save().then(
 						(data) => {res.json({status: true, message: "user's created"})},
-						(err) => {res.send("ERROR: ", err)}
+						(err) => {res.send(err)}
 					)
 				}
 			})
