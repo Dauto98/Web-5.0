@@ -1,5 +1,10 @@
 let mongoose = require('mongoose');
 
+let gamePlayedShema = mongoose.Schema({
+	name		: String,
+	highscore : Number
+},{_id : false});
+
 let user = mongoose.Schema({
 	username	 : String,
 	id 				 : {
@@ -7,10 +12,7 @@ let user = mongoose.Schema({
 		unique		: true,
 		required 	: true
 	},
-	gamePlayed : [{
-		name			: String,
-		highscore	: Number
-	}]
+	gamePlayed : [gamePlayedShema]
 });
 
 module.exports = mongoose.model('user', user);

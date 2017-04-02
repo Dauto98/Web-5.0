@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-let controller = require('/userController.js');
+let controller = require('./userController.js');
 
 //create an user
 router.post('/create', controller.createUser);

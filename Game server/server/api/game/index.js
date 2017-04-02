@@ -2,8 +2,8 @@ let express = require('express');
 let router = express.Router();
 let controller = require('./gameController.js');
 
-//get a list of game with id, withour highscore
-router.get('/all', controller.getAllGame);
+//get a list of game with id, without highscore
+router.get('/getAll', controller.getAllGame);
 
 //get top highscore of 1 specific game
 router.get('/:name/all', controller.getAll);

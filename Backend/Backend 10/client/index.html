@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Chat socket.io</title>
+		<script src="./socket.io-client/dist/socket.io.js"></script>
+		<script
+		  src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		  crossorigin="anonymous">
+		</script>
+	</head>
+	<body>
+		<p>hello world</p>
+
+		<ul id="listMessage"></ul>
+
+		<form id="formSubmit">
+			<input type="text" id="mess">
+		</form>
+
+		<script>
+			$.get('http://localhost:3000/allMess', (data) => {
+				data.forEach((value, index) => {
+					$('#listMessage').append($('<li>').text(value.content));
+				})
+			})
+
+			let socket = io.connect('localhost:3000');
+			socket.on('new client connected', (data) => {
+				console.log(data);
+				$('#listMessage').append(data + '<br>');
+			});
+			socket.on('receive a new chat', (data) => {
+				console.log(data);
+				$('#listMessage').append(data + '<br>');
+			});
+
+			$('#formSubmit').submit(() => {
+				socket.emit('new chat', $('#mess').val());
+				$('#mess').val('');
+				return false;
+			})
+		</script>
+	</body>
+</html>

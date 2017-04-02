@@ -12,9 +12,8 @@ let game = mongoose.Schema({
 		unique		: true
 	},
 	highscore	: [{
-		id 				: Number,
-		username	: String,
-		score			: Number
+		type	: mongoose.Schema.Types.ObjectId,
+		ref		: 'user'
 	}]
 });
 

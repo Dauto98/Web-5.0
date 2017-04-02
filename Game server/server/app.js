@@ -14,5 +14,9 @@ mongoose.connection.once('open', () => {
 });
 
 app.listen(configs.port, (err) => {
-	console.log('app is running at port ' + configs.port);
+	if (err) {
+		console.log(err);
+	} else {
+		console.log('app is running at port ' + configs.port);
+	}
 })
