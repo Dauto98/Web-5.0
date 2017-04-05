@@ -3,6 +3,9 @@ const express = require('express');
 var app = express();
 var router = express.Router();
 
+app.use(router);
+app.use(bodyParser);
+
 var user4 = {
 	"user3" : {
 		 "name" : "tuyen",

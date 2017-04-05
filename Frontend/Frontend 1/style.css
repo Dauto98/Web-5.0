@@ -1,0 +1,35 @@
+p {
+	color: red;
+}
+
+h1 {
+	font-weight: normal;
+}
+
+#top {
+	text-decoration: line-through;
+}
+
+.green_background {
+	background-color: green;
+}
+
+[href] {
+	font-size: 60px;
+}
+
+[alt='invoker'] {
+	border-radius: 100%;
+}
+
+ol li {
+	text-transform: capitalize;
+}
+
+ol > li {
+	text-transform: lowercase;
+}
+
+li:hover {
+	background-color: yellow;
+}
