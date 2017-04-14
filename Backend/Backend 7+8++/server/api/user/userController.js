@@ -41,7 +41,7 @@ module.exports = {
 		if (req.body) {
 			User.findOne({username: req.body.username}).exec((err, data) => {
 				if (data) {
-					res.json({status: false, message: "user are already exist"});
+					res.json({status: false, message: "user is already existed"});
 				} else {
 					let newUser = new User(req.body);
 					newUser.save().then(
