@@ -1,0 +1,40 @@
+.menu, .menu span {
+	background: brown;
+	text-align: center;
+	color: white;
+}
+
+.menu span {
+	display: inline-block;
+	width: 100px;
+	line-height: 30px;
+	font-weight: bold;
+	cursor: pointer;
+	position: relative;
+}
+
+.menu span:hover {
+	background: red;
+	color: green;
+}
+
+.menu nav {
+	display: none;
+	position: absolute;
+	width: 100%;
+}
+
+.menu nav nav {
+	top: 0;
+	left: 100%;
+}
+
+.menu span:hover > nav {
+	display: block;
+}
+
+@@media screen and (min-width: 700px) {
+	body{
+		background-color: blue
+	}
+}
